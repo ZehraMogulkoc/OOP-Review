@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Reading implements ReadZehra {
+class Reading extends FileOperations implements ReadZehra {
+
+    protected Reading(String input, String output, UserPreferences pref) {
+        super(input, output, pref);
+    }
 
     @Override
-    public List<String> read(String input) throws IOException { // read method
+    public List<String> read() throws IOException { // read method
         List<String> content = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(input));
+            BufferedReader reader = new BufferedReader(new FileReader(this.input));
             String line;
             while ((line = reader.readLine()) != null) {
                 content.add(line);
@@ -28,5 +32,5 @@ class Reading implements ReadZehra {
 }
 
 public interface ReadZehra {
-    List<String> read(String input) throws IOException;
+    List<String> read() throws IOException;
 }

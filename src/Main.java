@@ -9,7 +9,7 @@ public class Main {
         String input= sc.next();
         System.out.println("Please enter the output file name");
         String output= sc.next();
-        System.out.println("Please enter your preferences as type of screen or file");
+        System.out.println("Please enter your preferences as type of screen or fıle");
         UserPreferences pref;
         try {
             pref = UserPreferences.valueOf(sc.next().toUpperCase());
@@ -17,10 +17,10 @@ public class Main {
             throw new IllegalArgumentException("Invalid preference value: " + e);
       }
 
-        ReadZehra readZ=new FileOperations(path+input, path+output, pref);
-        WriteZehra writeZ=new FileOperations(path+input, path+output, pref);
+        ReadZehra readZ=new Reading(path+input, path+output, pref);
+        WriteZehra writeZ=new Writing(path+input, path+output, pref);
 
-        writeZ.write(readZ.read(input),pref,output);
+        writeZ.write(readZ.read());
         //sol taraflar hep interface olsun
 
     }

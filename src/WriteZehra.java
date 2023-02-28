@@ -1,17 +1,21 @@
 import java.io.*;
 import java.util.List;
 
-class Writing implements WriteZehra {
+ class Writing extends FileOperations implements WriteZehra {
 
 
-    public void writeToScreen(List<String> content) {
+     protected Writing(String input, String output, UserPreferences pref) {
+         super(input, output, pref);
+     }
+
+     public void writeToScreen(List<String> content) {
         System.out.println(content);
     }
 
-    public void writeToFile(List<String> content, String output) throws IOException {
+    public void writeToFile(List<String> content) throws IOException {
         try {
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(output));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.output));
 
             for (String line : content) {
                 writer.write(line);
@@ -26,18 +30,17 @@ class Writing implements WriteZehra {
     }
 
     @Override
-    public void write(List<String> content, UserPreferences pref, String output) throws IOException {
-        if (pref == UserPreferences.SCREEN) {
+    public void write(List<String> content) throws IOException {
+        if (this.pref == UserPreferences.SCREEN) {
             writeToScreen(content);
-        } else if (pref == UserPreferences.FILE) {
-            writeToFile(content, output);
+        } else if (this.pref == UserPreferences.FILE) {
+            writeToFile(content);
         }
     }
-
 
 }
 
 public interface WriteZehra {
 
-    void write(List<String> content, UserPreferences pref, String output) throws IOException;
+    void write(List<String> content) throws IOException;
 }
